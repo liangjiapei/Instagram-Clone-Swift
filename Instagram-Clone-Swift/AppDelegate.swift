@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Initialize Parse
+        // Set applicationId and server based on the values in the Heroku settings.
+        // clientKey is not used on Parse open source unless explicitly configured
+        /*
+        Parse.initialize(with:
+            ParseClientConfiguration(block: { (configuration:ParseMutableClientConfiguration) -> Void in
+            configuration.applicationId = "Instagram"
+            configuration.clientKey = "1loveyoumom&dad"  // set to nil assuming you have not set clientKey
+            configuration.server = "http://instagram.herokuapp.com/parse"
+        }))
+        */
+        
+        Parse.initialize(with: ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) in
+            configuration.applicationId = "CodePath-Parse"
+            configuration.server = "http://45.79.67.127:1337/parse"
+        }))
+        
+        if PFUser.current() != nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "MainNavigationController")
+            
+            window?.rootViewController = vc
+        }
+        
         return true
     }
 
