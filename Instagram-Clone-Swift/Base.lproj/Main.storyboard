@@ -96,7 +96,7 @@
         <!--Root View Controller-->
         <scene sceneID="yNo-BW-bjz">
             <objects>
-                <tableViewController id="KWW-8W-viR" sceneMemberID="viewController">
+                <tableViewController id="KWW-8W-viR" customClass="PostsTableViewController" customModule="Instagram_Clone_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aGC-HW-6sG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,13 @@
                             <outlet property="delegate" destination="KWW-8W-viR" id="m39-7P-bqi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="rrK-nW-XRv"/>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="rrK-nW-XRv">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="ntJ-8o-Z5P">
+                            <connections>
+                                <action selector="onLogOutButton:" destination="KWW-8W-viR" id="MBv-yM-3nd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zj7-ea-N78" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -141,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="1807" y="-556"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Compose View Controller-->
         <scene sceneID="ajZ-C2-9mz">
             <objects>
-                <viewController id="oGJ-th-g0g" customClass="MainViewController" customModule="Instagram_Clone_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oGJ-th-g0g" customClass="ComposeViewController" customModule="Instagram_Clone_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oJd-8a-sgo"/>
                         <viewControllerLayoutGuide type="bottom" id="hiN-cz-TDV"/>
@@ -153,7 +159,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addImage" translatesAutoresizingMaskIntoConstraints="NO" id="6kq-I9-W0b">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addImage" translatesAutoresizingMaskIntoConstraints="NO" id="6kq-I9-W0b">
                                 <rect key="frame" x="16" y="82" width="343" height="298"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -178,6 +184,9 @@
                                 <state key="normal" title="Post">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onPostButton:" destination="oGJ-th-g0g" eventType="touchUpInside" id="4jF-Vv-hcq"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Describe your photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5QE-Vr-mcY">
                                 <rect key="frame" x="22" y="395" width="182" height="24"/>
@@ -205,13 +214,7 @@
                             <outletCollection property="gestureRecognizers" destination="dW1-b8-N2b" appends="YES" id="ZLW-2e-qPy"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="f5o-Oh-ayO">
-                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="tRW-29-OAm">
-                            <connections>
-                                <action selector="onLogoutButton:" destination="oGJ-th-g0g" id="H3P-tn-D4v"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="f5o-Oh-ayO"/>
                     <connections>
                         <outlet property="captionPlaceholder" destination="5QE-Vr-mcY" id="zms-0o-7fq"/>
                         <outlet property="captionTextView" destination="FML-Rq-29T" id="GoM-VH-dfx"/>
@@ -307,6 +310,7 @@
                 <tabBarController storyboardIdentifier="TabbarController" automaticallyAdjustsScrollViewInsets="NO" id="qlt-1I-vOt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="od7-Eo-8mP">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

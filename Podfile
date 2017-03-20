@@ -7,5 +7,6 @@ target 'Instagram-Clone-Swift' do
 
   # Pods for Instagram-Clone-Swift
   pod 'Parse'
+  pod 'MBProgressHUD'
 
 end

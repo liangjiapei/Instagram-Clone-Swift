@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
+import MBProgressHUD
 
-class MainViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ComposeViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var captionTextView: UITextView!
     
@@ -141,6 +142,31 @@ class MainViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
         dismiss(animated: true, completion: nil)
         
     }
+    
+    
+    @IBAction func onPostButton(_ sender: Any) {
+        
+        view.endEditing(true)
+        
+        // Display HUD right before the request is made
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        Post.postUserImage(image: postImageView.image, withCaption: captionTextView.text) { (success: Bool, error:Error?) in
+            
+            // Hide HUD once the network request comes back (must be done on main UI thread)
+            MBProgressHUD.hide(for: self.view, animated: true)
+            
+            if success {
+                print("success make a post")
+            } else {
+                print(error?.localizedDescription)
+            }
+            
+        }
+        
+    }
+    
+    
     
     @IBAction func onTapView(_ sender: UITapGestureRecognizer) {
         
