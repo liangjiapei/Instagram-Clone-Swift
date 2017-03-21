@@ -11,6 +11,8 @@ import Parse
 
 class PostsTableViewController: UITableViewController {
 
+    var posts: [PFObject]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +21,26 @@ class PostsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // construct PFQuery
+        let query = PFQuery(className: "Post")
+        query.order(byDescending: "createdAt")
+        query.includeKey("author")
+        query.limit = 20
+        
+        // fetch data asynchronously
+        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) in
+            if let posts = posts {
+                // do something with the data fetched
+                
+                print(posts)
+                self.posts = posts
+                
+                self.tableView.reloadData()
+            } else {
+                // handle error
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,25 +71,27 @@ class PostsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        if posts != nil {
+            return posts!.count
+        } else {
+            return 0
+        }
     }
     
-    
-
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! InstagramPostTableViewCell
 
         // Configure the cell...
+        cell.post = posts?[indexPath.row]
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
